@@ -9,10 +9,9 @@ function initialize(zipcode_from_ajax) {
   /* drop markers in this array */
   var markers = [];
 
-  var zipcode = "";
-  var zipcode_from_server = "<%= @zipcode %>";
-  if (zipcode_from_server.length > 0) {
-    zipcode = zipcode_from_ajax;
+  var zipcode = zipcode_from_ajax;
+  if (!Object.isString(zipcode_from_ajax)) {
+    zipcode = "<%= @zipcode %>";
   }
   
   /* Get the request */
