@@ -5,8 +5,11 @@ function initialize() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };      
   var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  
+  /* drop markers in this array */
   var markers = [];
-  var text_for_request = "<%= @text_to_prepend %>";
+
+  
   var zipcode = "<%= @zipcode %>";
   
   /* Get the request */
