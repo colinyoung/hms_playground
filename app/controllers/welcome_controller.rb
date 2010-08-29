@@ -9,6 +9,7 @@ class WelcomeController < ApplicationController
     if params[:search_string].blank?
       render :text => "blank request"
     else
+      # redirect_to :controller => "workplaces", :action => "show_map", :id => params[:search_string] 
       redirect_to "/map/#{params[:search_string]}"
     end
   end
