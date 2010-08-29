@@ -1,5 +1,5 @@
 <script type='text/javascript'>  
-function initialize() {  
+function initialize(zipcode_from_ajax) {  
   var myOptions = {
     zoom: 10,
     mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -9,8 +9,11 @@ function initialize() {
   /* drop markers in this array */
   var markers = [];
 
-  
-  var zipcode = "<%= @zipcode %>";
+  var zipcode = "";
+  var zipcode_from_server = "<%= @zipcode %>";
+  if (zipcode_from_server !== "") {
+    zipcode = zipcode_from_ajax;
+  }
   
   /* Get the request */
   var gcoder = new google.maps.Geocoder;
@@ -33,11 +36,16 @@ function initialize() {
 function markerClickDelegate(marker) {
   alert(marker.title);
 }  
+
+function reloadMap() {
+  initialize($("search_string").value);
+  return false;
+}
 </script>
 <h3>Find your store.</h3>
 <h4>We've automatically searched close to your zipcode.</h4>
 <p><em>If you don't see your store, <a href="#">add it</a></em></p>
-  <form method="post" action="/map/redirect">
+  <form onsubmit="return reloadMap();">
   <p>
     Starbucks near <input type="text" id="search_string" name="search_string" value="<%= @zipcode %>" autocomplete="off" /> <input type="submit" id="search_button" value="Search">
   </p>
