@@ -7,8 +7,16 @@ function initialize() {
   var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
   
   /* drop markers in this array */
-  var markers = [];
-
+  <% Workplace.all.first(100).each do |w| %>
+    <%=
+      %(
+        var marker = new google.maps.Marker({
+          map: map, 
+          position: new google.maps.LatLng(#{w.lat},#{w.lng})
+        });
+      )
+    %>
+  <% end %>
   
   var zipcode = "<%= @zipcode %>";
   
@@ -18,15 +26,9 @@ function initialize() {
     function(results, status) {
        if (status == google.maps.GeocoderStatus.OK) {
          map.setCenter(results[0].geometry.location);
-         /*var marker = new google.maps.Marker({
-          map: map, 
-          position: results[0].geometry.location
-         });*/
        }
      }
   );
-  
-  
   /* Set the map on the user's zipcode coords. */
 } 
 
@@ -45,5 +47,5 @@ function markerClickDelegate(marker) {
 <div id="map_canvas" style="width: 500px; height: 300px; margin-bottom: 2px;">
 
 <script type='text/javascript'>  
-initialize();
+  initialize();
 </script>
