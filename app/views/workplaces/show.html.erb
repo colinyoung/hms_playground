@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Address:</b>
+  <%= @workplace.address %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @workplace.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @workplace.state %>
+</p>
+
+<p>
+  <b>Zip code:</b>
+  <%= @workplace.zip_code %>
+</p>
+
+<p>
+  <b>Lng:</b>
+  <%= @workplace.lng %>
+</p>
+
+<p>
+  <b>Lat:</b>
+  <%= @workplace.lat %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @workplace.phone %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%= @workplace.country %>
+</p>
+
+<p>
+  <b>Company:</b>
+  <%= @workplace.company_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_workplace_path(@workplace) %> |
+<%= link_to 'Back', workplaces_path %>
