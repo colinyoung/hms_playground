@@ -37,7 +37,7 @@ function markerClickDelegate(marker) {
 <h3>Find your store.</h3>
 <h4>We've automatically searched close to your zipcode.</h4>
 <p><em>If you don't see your store, <a href="#">add it</a></em></p>
-  <form method="get" action="/map/redirect">
+  <form method="post" action="/map/redirect">
   <p>
     Starbucks near <input type="text" id="search_string" name="search_string" value="<%= @zipcode %>" autocomplete="off" /> <input type="submit" id="search_button" value="Search">
   </p>
