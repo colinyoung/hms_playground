@@ -26,8 +26,13 @@ function initialize() {
      }
   );
   
+  
   /* Set the map on the user's zipcode coords. */
-}   
+} 
+
+function markerClickDelegate(marker) {
+  alert(marker.title);
+}  
 </script>
 <h3>Find your store.</h3>
 <h4>We've automatically searched close to your zipcode.</h4>
