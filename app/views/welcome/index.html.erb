@@ -11,7 +11,7 @@ function initialize(zipcode_from_ajax) {
 
   var zipcode = "";
   var zipcode_from_server = "<%= @zipcode %>";
-  if (zipcode_from_server !== "") {
+  if (zipcode_from_server.length > 0) {
     zipcode = zipcode_from_ajax;
   }
   
