@@ -1,19 +1,39 @@
 <script type='text/javascript'>  
 function initialize() {  
-    if (GBrowserIsCompatible()) {  
-        var map = new  GMap2(document.getElementById('map_canvas'));      
-        map.setCenter(new GLatLng(51.5,-0.1167), 2);       
-        map.addOverlay(new  GMarker(new GLatLng(43.6667,-79.4168)));      
-        map.setUIToDefault();
-        }   
-    }
+  var myOptions = {
+    zoom: 10,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };      
+  var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  var markers = [];
+  var text_for_request = "<%= @text_to_prepend %>";
+  var zipcode = "<%= @zipcode %>";
+  
+  /* Get the request */
+  var gcoder = new google.maps.Geocoder;
+  gcoder.geocode({ address: zipcode, region: "US" },  
+    function(results, status) {
+       if (status == google.maps.GeocoderStatus.OK) {
+         map.setCenter(results[0].geometry.location);
+         /*var marker = new google.maps.Marker({
+          map: map, 
+          position: results[0].geometry.location
+         });*/
+       }
+     }
+  );
+  
+  /* Set the map on the user's zipcode coords. */
+}   
 </script>
 <h3>Find your store.</h3>
 <h4>We've automatically searched close to your zipcode.</h4>
 <p><em>If you don't see your store, <a href="#">add it</a></em></p>
-<p>
-  Starbucks near <input type="text" id="search_string" /> <input type="button" id="search_button" value="Search">
-</p>
+  <form method="get" action="/map/redirect">
+  <p>
+    Starbucks near <input type="text" id="search_string" name="search_string" value="<%= @zipcode %>" autocomplete="off" /> <input type="submit" id="search_button" value="Search">
+  </p>
+  </form>
 <div id="map_canvas" style="width: 500px; height: 300px; margin-bottom: 2px;">
 
 <script type='text/javascript'>  
