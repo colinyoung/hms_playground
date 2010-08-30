@@ -7,12 +7,20 @@ function initialize(zipcode_from_ajax) {
   var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
   
   /* drop markers in this array */
-  <% Workplace.all.first(100).each do |w| %>
+  var marker = null;
+  <% Workplace.all.first(100).each_with_index do |w, i| %>
     <%=
       %(
-        var marker = new google.maps.Marker({
+        var marker_#{i} = new google.maps.Marker({
           map: map, 
-          position: new google.maps.LatLng(#{w.lat},#{w.lng})
+          position: new google.maps.LatLng(#{w.lat},#{w.lng}),
+          title: '#{w.address}, #{w.city}, #{w.state}'
+        });
+        
+        google.maps.event.addListener(marker_#{i}, 'click', function() {
+            map.setZoom(14);
+            map.setCenter(marker_#{i}.position);
+            markerClickDelegate(marker_#{i});
         });
       )
     %>
@@ -39,7 +47,7 @@ function initialize(zipcode_from_ajax) {
 } 
 
 function markerClickDelegate(marker) {
-  alert(marker.title);
+  $("report").insert(marker.title);
 }  
 
 function reloadMap() {
@@ -55,8 +63,8 @@ function reloadMap() {
     Starbucks near <input type="text" id="search_string" name="search_string" value="<%= @zipcode %>" autocomplete="off" /> <input type="submit" id="search_button" value="Search">
   </p>
   </form>
+<p id="report" style="color:green"></p>
 <div id="map_canvas" style="width: 500px; height: 300px; margin-bottom: 2px;">
-
 <script type='text/javascript'>  
   initialize();
 </script>
