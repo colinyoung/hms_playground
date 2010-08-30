@@ -1,7 +1,7 @@
 <script type='text/javascript'>  
 function initialize(zipcode_from_ajax) {  
   var myOptions = {
-    zoom: 10,
+    zoom: 12,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };      
   var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
@@ -19,7 +19,7 @@ function initialize(zipcode_from_ajax) {
         
         google.maps.event.addListener(marker_#{i}, 'click', function() {
             map.setZoom(14);
-            map.setCenter(marker_#{i}.position);
+            map.panTo(marker_#{i}.position);
             markerClickDelegate(marker_#{i});
         });
       )
@@ -47,7 +47,7 @@ function initialize(zipcode_from_ajax) {
 } 
 
 function markerClickDelegate(marker) {
-  $("report").insert(marker.title);
+  $("report").innerHTML = marker.title;
 }  
 
 function reloadMap() {
@@ -63,7 +63,7 @@ function reloadMap() {
     Starbucks near <input type="text" id="search_string" name="search_string" value="<%= @zipcode %>" autocomplete="off" /> <input type="submit" id="search_button" value="Search">
   </p>
   </form>
-<p id="report" style="color:green"></p>
+<p>You've selected: <span id="report" style="color: green">no store yet.</span></p>
 <div id="map_canvas" style="width: 500px; height: 300px; margin-bottom: 2px;">
 <script type='text/javascript'>  
   initialize();
